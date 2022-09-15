@@ -75,9 +75,7 @@ class FileStorage:
             return None
         else:
             all_obj = self.all(cls)
-            for key, value in all_obj.items():
-                if value.id == id:
-                    return value
+            return all_obj.get(cls.__name__ + "." + id)
 
     def count(self, cls=None):
         """count the number of objects in the Filestorage"""
