@@ -121,14 +121,38 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get_method_no_id(self):
+    def test_get_method_no_id_state(self):
         """test with no valid id"""
         state = models.storage.get(State, "rqhqerhq454543")
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get_method_no_id(self):
+    def test_get_method_no_id_user(self):
         """test with no valid id"""
+        user = models.storage.get(User, "rqhqerhq454543")
+        self.assertEqual(None, user)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_method_no_id_place(self):
+        """test with no valid id"""
+        place = models.storage.get(Place, "rqhqerhq454543")
+        self.assertEqual(None, place)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_method_no_id_amenity(self):
+        """test with no valid id"""
+        amenity = models.storage.get(Amenity, "rqhqerhq454543")
+        self.assertEqual(None, amenity)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_method_no_id_city(self):
+        """test with no valid id"""
+        city = models.storage.get(City, "rqhqerhq454543")
+        self.assertEqual(None, city)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_method_all_states(self):
+        """test id for all states"""
         states = models.storage.all(State)
         for state in states.values():
             test_state = models.storage.get(State, state.id)
