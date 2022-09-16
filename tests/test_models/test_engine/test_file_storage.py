@@ -42,7 +42,7 @@ class TestFileStorageDocs(unittest.TestCase):
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['tests/test_models/test_engine/\
 test_file_storage.py'])
-        self.assertNotEqual(result.total_errors, 0,
+        self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
     def test_file_storage_module_docstring(self):
@@ -95,7 +95,6 @@ class TestFileStorage(unittest.TestCase):
         FileStorage._FileStorage__objects = save
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-
     def test_save(self):
         """Test that save properly saves objects to file.json"""
         storage = FileStorage()
@@ -116,21 +115,18 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(json.loads(string), json.loads(js))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-
     def test_get_method_no_args(self):
         """test with No cls and no id"""
         state = models.storage.get(None, None)
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-
     def test_get_method_no_id(self):
         """test with no valid id"""
         state = models.storage.get(State, "rqhqerhq454543")
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-
     def test_get_method_no_id(self):
         """test with no valid id"""
         states = models.storage.all(State)
@@ -139,7 +135,6 @@ class TestFileStorage(unittest.TestCase):
             self.assertEqual(state.name, test_state.name)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-
     def test_count_method_all(self):
         """test count all object in a class"""
         all = models.storage.all()

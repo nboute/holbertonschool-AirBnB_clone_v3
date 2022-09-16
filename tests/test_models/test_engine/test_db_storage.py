@@ -88,30 +88,26 @@ class TestFileStorage(unittest.TestCase):
         """Test that save properly saves objects to file.json"""
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-
     def test_get_method_no_args(self):
         """test with No cls and no id"""
         state = models.storage.get(None, None)
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-
     def test_get_method_no_id(self):
         """test with no valid id"""
         state = models.storage.get(State, "rqhqerhq454543")
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-
-    def test_get_method_no_id(self):
-        """test with no valid id"""
+    def test_get_method_all_states(self):
+        """test id for all states"""
         states = models.storage.all(State)
         for state in states.values():
             test_state = models.storage.get(State, state.id)
             self.assertEqual(state.name, test_state.name)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-
     def test_count_method_all(self):
         """test count all objects"""
         all = models.storage.all()
@@ -119,7 +115,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(count_all, len(all))
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-
     def test_count_method_state(self):
         """test count for state class"""
         all_state = models.storage.all(State)
