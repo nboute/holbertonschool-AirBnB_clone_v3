@@ -87,9 +87,15 @@ class TestDBStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get_method_no_args(self):
         """test with No cls and no id"""
         state = models.storage.get(None, None)
+        self.assertEqual(None, state)
+
+    def test_get(self):
+        """test with no valid id"""
+        state = models.storage.get(State, "rqhqerhq454543")
         self.assertEqual(None, state)
 
     def test_get_method_no_id(self):
@@ -128,6 +134,12 @@ class TestDBStorage(unittest.TestCase):
         for state in states.values():
             test_state = models.storage.get(State, state.id)
             self.assertEqual(state.name, test_state.name)
+
+    def test_count(self):
+        """test count all object in a class"""
+        all = models.storage.all()
+        count_all = models.storage.count()
+        self.assertEqual(count_all, len(all))
 
     def test_count_method_all(self):
         """test count all objects"""
