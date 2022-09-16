@@ -100,6 +100,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(None, state)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_method_no_id(self):
+        """test with no valid id"""
+        states = models.storage.all(State)
+        for state in states.values():
+            test_state = models.storage.get(State, state.id)
+            self.assertEqual(state.name, test_state.name)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count_method_all(self):
         """test count all objects"""
         all = models.storage.all()
