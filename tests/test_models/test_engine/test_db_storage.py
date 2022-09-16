@@ -95,8 +95,12 @@ class TestDBStorage(unittest.TestCase):
 
     def test_get(self):
         """test with no valid id"""
-        state = models.storage.get(State, "rqhqerhq454543")
-        self.assertEqual(None, state)
+        state = State(name='Louisiana')
+        state.save()
+        user = User()
+        user.save()
+        self.assertIs(state, models.storage.get(State, state.id))
+        self.assertIs(user, models.storage.get(User, user.id))
 
     def test_get_method_no_id(self):
         """test with no valid id"""
