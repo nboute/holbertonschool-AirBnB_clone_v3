@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import jsonify, request, abort
 from models.place import Place
 from models.review import Review
+from models.user import User
 from models import storage
 
 
@@ -52,8 +53,13 @@ def review_post(place_id):
     body = request.get_json()
     if body is None:
         abort(400, description="Not a JSON")
-    if 'name' not in body.keys():
-        abort(400, description="Missing name")
+    if 'user_id' not in body.keys():
+        abort(400, description="Missing user_id")
+    user = storage.get(User, body.get('user_id'))
+    if user is None:
+        abort(404)
+    if 'text' not in body.keys():
+        abort(400, description="Missing text")
     body['place_id'] = place_id
     review = Review(**body)
     review.save()
