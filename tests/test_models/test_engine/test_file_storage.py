@@ -113,3 +113,29 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing db storage")
+    def test_get_method_no_args(self):
+        """test with No cls and no id"""
+        state = models.storage.get(None, None)
+        self.assertEqual(None, state)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing db storage")
+    def test_get_method_no_id(self):
+        """test with no valid id"""
+        state = models.storage.get(State, "rqhqerhq454543")
+        self.assertEqual(None, state)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing db storage")
+    def test_count_method_all(self):
+        """test count all object in a class"""
+        all = models.storage.all()
+        count_all = models.storage.count()
+        self.assertEqual(count_all, len(all))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing db storage")
+    def test_count_method_state(self):
+        """test count for state class"""
+        all_state = models.storage.all(State)
+        count_state = models.storage.count(State)
+        self.assertEqual(count_state, len(all_state))
