@@ -101,7 +101,8 @@ def search_place():
         for id in states_id_list:
             state = storage.get(State, id)
             if (state is not None):
-                cities_list.append(state.cities)
+                for city in state.cities:
+                    cities_list.append(city)
     cities_id_list = body.get('cities')
     if (cities_id_list):
         for id in cities_id_list:
