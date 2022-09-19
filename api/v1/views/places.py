@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """places file"""
+from asyncio import current_task
 from api.v1.views import app_views
 from flask import jsonify, request, abort
 from models.place import Place
@@ -101,30 +102,27 @@ def search_place():
             state = storage.get(State, id)
             if (state is not None):
                 cities_list.append(state.cities)
-                for city in state.cities:
-                    for place in city.places:
-                        places.append(place)
     cities_id_list = body.get('cities')
     if (cities_id_list):
         for id in cities_id_list:
             city = storage.get(City, id)
             if city is not None and city not in cities_list:
-                for place in city.places:
-                    places.append(place)
-    if (len(places) == 0):
+                cities_list.append(city)
+    if (len(cities_list) == 0):
         places = list(storage.all(Place).values())
-    amenities_id_list = body.get('amenities')
-    for place in places:
-        place_amenities = place.amenities
-        for id in amenities_id_list:
+    else:
+        for city in cities_list:
+            for place in city.places:
+                places.append(place)
+        for place in places:
             check = 0
-            for amenity in place_amenities:
-                if (id == amenity.id):
+            for id in body.get('amenities'):
+                curr_amenity = storage.get(Amenity, id)
+                if (curr_amenity and curr_amenity not in place.amenities):
                     check = 1
                     break
-            if (check == 0):
+            if check == 1:
                 places.remove(place)
-                break
 
     for i in range(len(places)):
         places[i] = places[i].to_dict()
