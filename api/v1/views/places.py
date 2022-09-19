@@ -89,6 +89,7 @@ def places_put(places_id):
 @app_views.route("/places_search", methods=['POST'],
                  strict_slashes=False)
 def search_place():
+    """Search places, filtering by state, city and amenities"""
     body = request.get_json()
     if body is None:
         abort(400, "Not a JSON")
