@@ -123,7 +123,6 @@ def search_place():
                 break
         if check == 1:
             places.remove(place)
-
     for i in range(len(places)):
         places[i] = places[i].to_dict()
         if 'amenities' in places[i].keys():
