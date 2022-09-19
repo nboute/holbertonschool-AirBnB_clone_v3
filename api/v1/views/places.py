@@ -94,13 +94,10 @@ def search_place():
     if body is None:
         abort(400, "Not a JSON")
     places = []
-    if (len(body) == 0 or (body.get('states') is None and body.get('cities')
-                           is None and body.get('amenities') is None)):
-        places = storage.all(Place)
-    else:
+    if (len(body) > 0):
         states_id_list = body.get('states')
         cities_list = []
-        if (states_id_list):
+        if (states_id_list and len(states_id_list) > 0):
             for id in states_id_list:
                 state = storage.get(State, id)
                 if (state is not None):
@@ -109,25 +106,30 @@ def search_place():
                         for place in city.places:
                             places.append(place)
         cities_id_list = body.get('cities')
-        if (cities_id_list):
+        if (cities_id_list and len(cities_id_list) > 0):
             for id in cities_id_list:
                 city = storage.get(City, id)
                 if city is not None and city not in cities_list:
                     for place in city.places:
                         places.append(place)
-        amenities_id_list = body.get('amenities')
-        if (amenities_id_list):
-            amenities_list = []
-            for id in amenities_id_list:
-                amenity = storage.get(Amenity, id)
-                if (amenity is not None):
-                    amenities_list.append(amenity)
-            for place in places:
-                if amenities_list is not None:
-                    for amenity in amenities_list:
-                        if amenity not in place.amenities:
-                            places.remove(place)
-                            break
+    if (len(body) == 0
+        or ((states_id_list is None or len(states_id_list) == 0)
+            and cities_id_list is None or (len(states_id_list) == 0))):
+        places = list(storage.all(Place).values())
+
+    amenities_id_list = body.get('amenities')
+    if (amenities_id_list):
+        amenities_list = []
+        for id in amenities_id_list:
+            amenity = storage.get(Amenity, id)
+            if (amenity is not None):
+                amenities_list.append(amenity)
+        for place in places:
+            if amenities_list is not None:
+                for amenity in amenities_list:
+                    if amenity not in place.amenities:
+                        places.remove(place)
+                        break
     for i in range(len(places)):
         places[i] = places[i].to_dict()
         if 'amenities' in places[i].keys():
