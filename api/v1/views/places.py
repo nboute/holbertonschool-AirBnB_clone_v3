@@ -116,10 +116,16 @@ def search_place():
     amenities_id_list = body.get('amenities')
     for place in places:
         place_amenities = place.amenities
-        for place_amenity in place_amenities:
-            if place_amenity.id in amenities_id_list:
+        for id in amenities_id_list:
+            check = 0
+            for amenity in place_amenities:
+                if (id == amenity.id):
+                    check = 1
+                    break
+            if (check == 0):
                 places.remove(place)
                 break
+
     for i in range(len(places)):
         places[i] = places[i].to_dict()
         if 'amenities' in places[i].keys():
