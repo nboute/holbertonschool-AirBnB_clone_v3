@@ -114,18 +114,12 @@ def search_place():
     if (len(places) == 0):
         places = list(storage.all(Place).values())
     amenities_id_list = body.get('amenities')
-    if (amenities_id_list):
-        amenities_list = []
-        for id in amenities_id_list:
-            amenity = storage.get(Amenity, id)
-            if (amenity is not None):
-                amenities_list.append(amenity)
-        for place in places:
-            if amenities_list is not None:
-                for amenity in amenities_list:
-                    if amenity not in place.amenities:
-                        places.remove(place)
-                        break
+    for place in places:
+        place_amenities = place.amenities
+        for place_amenity in place_amenities:
+            if place_amenity.id in amenities_id_list:
+                places.remove(place)
+                break
     for i in range(len(places)):
         places[i] = places[i].to_dict()
         if 'amenities' in places[i].keys():
