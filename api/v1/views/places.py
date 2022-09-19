@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""places file"""
+"""Flask api module for places"""
 from asyncio import current_task
 from api.v1.views import app_views
 from flask import jsonify, request, abort
