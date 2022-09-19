@@ -6,6 +6,8 @@ from models.place import Place
 from models.city import City
 from models.user import User
 from models import storage
+from models.state import State
+from models.amenity import Amenity
 
 
 @app_views.route("/cities/<city_id>/places", methods=['GET'],
@@ -82,3 +84,55 @@ def places_put(places_id):
             setattr(place, key, value)
     storage.save()
     return place.to_dict(), 200
+
+
+@app_views.route("/places_search", methods=['POST'],
+                 strict_slashes=False)
+def search_place():
+    body = request.get_json()
+    if body is None:
+        abort(400, "Not a JSON")
+    places = []
+    if (len(body) == 0 or (body.get('states') is None and body.get('cities')
+                           is None and body.get('amenities') is None)):
+        print("Hello")
+        places = storage.all(Place)
+    else:
+        print("here")
+        states_id_list = body.get('states')
+        cities_list = []
+        if (states_id_list):
+            for id in states_id_list:
+                print(id)
+                state = storage.get(State, id)
+                if (state is not None):
+                    cities_list.append(state.cities)
+                    for city in state.cities:
+                        for place in city.places:
+                            places.append(place)
+        cities_id_list = body.get('cities')
+        if (cities_id_list):
+            for id in cities_id_list:
+                city = storage.get(City, id)
+                if city is not None and city not in cities_list:
+                    for place in city.places:
+                        places.append(place)
+        amenities_id_list = body.get('amenities')
+        if (amenities_id_list):
+            amenities_list = []
+            for id in amenities_id_list:
+                amenity = storage.get(Amenity, id)
+                if (amenity is not None):
+                    amenities_list.append(amenity)
+            for place in places:
+                if amenities_list is not None:
+                    for amenity in amenities_list:
+                        if amenity not in place.amenities:
+                            places.remove(place)
+                            break
+    for i in range(len(places)):
+        places[i] = places[i].to_dict()
+        if 'amenities' in places[i].keys():
+            places[i].pop('amenities')
+    print(places)
+    return jsonify(places)
