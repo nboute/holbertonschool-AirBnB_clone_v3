@@ -109,20 +109,24 @@ def search_place():
             if city is not None and city not in cities_list:
                 cities_list.append(city)
     if (len(cities_list) == 0):
-        places = list(storage.all(Place).values())
+        for place in storage.all(Place).values():
+            places.append(place)
     else:
         for city in cities_list:
             for place in city.places:
                 places.append(place)
+    places_cleared = places.copy()
     for place in places:
         check = 0
-        for id in body.get('amenities'):
-            curr_amenity = storage.get(Amenity, id)
-            if (curr_amenity and curr_amenity not in place.amenities):
-                check = 1
-                break
+        if body.get('amenities'):
+            for id in body.get('amenities'):
+                curr_amenity = storage.get(Amenity, id)
+                if (curr_amenity and curr_amenity not in place.amenities):
+                    check = 1
+                    break
         if check == 1:
-            places.remove(place)
+            places_cleared.remove(place)
+    places = places_cleared
     for i in range(len(places)):
         places[i] = places[i].to_dict()
         if 'amenities' in places[i].keys():
