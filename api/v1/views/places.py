@@ -96,15 +96,12 @@ def search_place():
     places = []
     if (len(body) == 0 or (body.get('states') is None and body.get('cities')
                            is None and body.get('amenities') is None)):
-        print("Hello")
         places = storage.all(Place)
     else:
-        print("here")
         states_id_list = body.get('states')
         cities_list = []
         if (states_id_list):
             for id in states_id_list:
-                print(id)
                 state = storage.get(State, id)
                 if (state is not None):
                     cities_list.append(state.cities)
@@ -135,5 +132,4 @@ def search_place():
         places[i] = places[i].to_dict()
         if 'amenities' in places[i].keys():
             places[i].pop('amenities')
-    print(places)
     return jsonify(places)
