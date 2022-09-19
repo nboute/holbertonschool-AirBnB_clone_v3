@@ -114,15 +114,15 @@ def search_place():
         for city in cities_list:
             for place in city.places:
                 places.append(place)
-        for place in places:
-            check = 0
-            for id in body.get('amenities'):
-                curr_amenity = storage.get(Amenity, id)
-                if (curr_amenity and curr_amenity not in place.amenities):
-                    check = 1
-                    break
-            if check == 1:
-                places.remove(place)
+    for place in places:
+        check = 0
+        for id in body.get('amenities'):
+            curr_amenity = storage.get(Amenity, id)
+            if (curr_amenity and curr_amenity not in place.amenities):
+                check = 1
+                break
+        if check == 1:
+            places.remove(place)
 
     for i in range(len(places)):
         places[i] = places[i].to_dict()
