@@ -93,7 +93,7 @@ def search_place():
     """Search places, filtering by state, city and amenities"""
     body = request.get_json()
     if body is None:
-        abort(400, "Not a JSON")
+        return 'Not a JSON', 400
     places = []
     states_id_list = body.get('states')
     cities_list = []
