@@ -16,6 +16,7 @@ All instructions mentionned here refer to the Holberton School project's tasks. 
 
 The **AirBnB Clone V3** is a full-stack web development project that introduces a RESTful API built with Flask and SQLAlchemy. This project extends previous versions by incorporating features for managing users, places, cities, states, and amenities through a robust web service.
 
+![Project graph](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2020/9/02078cd7f0573885c85a225c7436584a5afea1f9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240725%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20240725T115641Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=8d704925fac48ec8f92c0c142f7b073456c1626c5e7cf427e7f57347cfa3bd82)
 ## Installation
 
 Follow these steps to set up the project:
