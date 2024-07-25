@@ -1,162 +1,173 @@
-# AirBnB Clone - The Console
-The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+# AirBnB Clone V3
 
-#### Functionalities of this command interpreter:
-* Create a new object (ex: a new User or a new Place)
-* Retrieve an object from a file, a database etc...
-* Do operations on objects (count, compute stats, etc...)
-* Update attributes of an object
-* Destroy an object
+Welcome to the **AirBnB Clone V3** project! This project is part of the Holberton School curriculum and aims to develop a simplified version of the AirBnB platform. This version includes a RESTful API to handle HTTP requests and perform CRUD operations on the backend storage system.
+All instructions mentionned here refer to the Holberton School project's tasks. They are already implemented in the project.
+## Table of Contents
 
-## Table of Content
-* [Environment](#environment)
-* [Installation](#installation)
-* [File Descriptions](#file-descriptions)
-* [Usage](#usage)
-* [Examples of use](#examples-of-use)
-* [Bugs](#bugs)
-* [Authors](#authors)
-* [License](#license)
+1. [Project Overview](#project-overview)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Tasks](#tasks)
+5. [Contributing](#contributing)
+6. [License](#license)
 
-## Environment
-This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
+## Project Overview
+
+The **AirBnB Clone V3** is a full-stack web development project that introduces a RESTful API built with Flask and SQLAlchemy. This project extends previous versions by incorporating features for managing users, places, cities, states, and amenities through a robust web service.
 
 ## Installation
-* Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
-* Access AirBnb directory: `cd AirBnB_clone`
-* Run hbnb(interactively): `./console` and enter command
-* Run hbnb(non-interactively): `echo "<command>" | ./console.py`
 
-## File Descriptions
-[console.py](console.py) - the console contains the entry point of the command interpreter. 
-List of commands this console current supports:
-* `EOF` - exits console 
-* `quit` - exits console
-* `<emptyline>` - overwrites default emptyline method and does nothing
-* `create` - Creates a new instance of`BaseModel`, saves it (to the JSON file) and prints the id
-* `destroy` - Deletes an instance based on the class name and id (save the change into the JSON file). 
-* `show` - Prints the string representation of an instance based on the class name and id.
-* `all` - Prints all string representation of all instances based or not on the class name. 
-* `update` - Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file). 
+Follow these steps to set up the project:
 
-#### `models/` directory contains classes used for this project:
-[base_model.py](/models/base_model.py) - The BaseModel class from which future classes will be derived
-* `def __init__(self, *args, **kwargs)` - Initialization of the base model
-* `def __str__(self)` - String representation of the BaseModel class
-* `def save(self)` - Updates the attribute `updated_at` with the current datetime
-* `def to_dict(self)` - returns a dictionary containing all keys/values of the instance
+1. **Clone the repository:**
 
-Classes inherited from Base Model:
-* [amenity.py](/models/amenity.py)
-* [city.py](/models/city.py)
-* [place.py](/models/place.py)
-* [review.py](/models/review.py)
-* [state.py](/models/state.py)
-* [user.py](/models/user.py)
+    ```bash
+    git clone https://github.com/your-username/holbertonschool-AirBnB_clone_v3.git
+    cd holbertonschool-AirBnB_clone_v3
+    ```
 
-#### `/models/engine` directory contains File Storage class that handles JASON serialization and deserialization :
-[file_storage.py](/models/engine/file_storage.py) - serializes instances to a JSON file & deserializes back to instances
-* `def all(self)` - returns the dictionary __objects
-* `def new(self, obj)` - sets in __objects the obj with key <obj class name>.id
-* `def save(self)` - serializes __objects to the JSON file (path: __file_path)
-* ` def reload(self)` -  deserializes the JSON file to __objects
+2. **Set up a virtual environment:**
 
-#### `/tests` directory contains all unit test cases for this project:
-[/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
-TestBaseModelDocs class:
-* `def setUpClass(cls)`- Set up for the doc tests
-* `def test_pep8_conformance_base_model(self)` - Test that models/base_model.py conforms to PEP8
-* `def test_pep8_conformance_test_base_model(self)` - Test that tests/test_models/test_base_model.py conforms to PEP8
-* `def test_bm_module_docstring(self)` - Test for the base_model.py module docstring
-* `def test_bm_class_docstring(self)` - Test for the BaseModel class docstring
-* `def test_bm_func_docstrings(self)` - Test for the presence of docstrings in BaseModel methods
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 
-TestBaseModel class:
-* `def test_is_base_model(self)` - Test that the instatiation of a BaseModel works
-* `def test_created_at_instantiation(self)` - Test created_at is a pub. instance attribute of type datetime
-* `def test_updated_at_instantiation(self)` - Test updated_at is a pub. instance attribute of type datetime
-* `def test_diff_datetime_objs(self)` - Test that two BaseModel instances have different datetime objects
+3. **Install dependencies:**
 
-[/test_models/test_amenity.py](/tests/test_models/test_amenity.py) - Contains the TestAmenityDocs class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_amenity(self)` - Test that models/amenity.py conforms to PEP8
-* `def test_pep8_conformance_test_amenity(self)` - Test that tests/test_models/test_amenity.py conforms to PEP8
-* `def test_amenity_module_docstring(self)` - Test for the amenity.py module docstring
-* `def test_amenity_class_docstring(self)` - Test for the Amenity class docstring
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-[/test_models/test_city.py](/tests/test_models/test_city.py) - Contains the TestCityDocs class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_city(self)` - Test that models/city.py conforms to PEP8
-* `def test_pep8_conformance_test_city(self)` - Test that tests/test_models/test_city.py conforms to PEP8
-* `def test_city_module_docstring(self)` - Test for the city.py module docstring
-* `def test_city_class_docstring(self)` - Test for the City class docstring
+4. **Configure environment variables:**
 
-[/test_models/test_file_storage.py](/tests/test_models/test_file_storage.py) - Contains the TestFileStorageDocs class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_file_storage(self)` - Test that models/file_storage.py conforms to PEP8
-* `def test_pep8_conformance_test_file_storage(self)` - Test that tests/test_models/test_file_storage.py conforms to PEP8
-* `def test_file_storage_module_docstring(self)` - Test for the file_storage.py module docstring
-* `def test_file_storage_class_docstring(self)` - Test for the FileStorage class docstring
+    - `HBNB_ENV`: Set to "dev" or "test".
+    - `HBNB_MYSQL_USER`: Your MySQL username.
+    - `HBNB_MYSQL_PWD`: Your MySQL password.
+    - `HBNB_MYSQL_HOST`: Your MySQL host.
+    - `HBNB_MYSQL_DB`: Your database name.
+    - `HBNB_TYPE_STORAGE`: Set to "file" or "db".
 
-[/test_models/test_place.py](/tests/test_models/test_place.py) - Contains the TestPlaceDoc class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_place(self)` - Test that models/place.py conforms to PEP8.
-* `def test_pep8_conformance_test_place(self)` - Test that tests/test_models/test_place.py conforms to PEP8.
-* `def test_place_module_docstring(self)` - Test for the place.py module docstring
-* `def test_place_class_docstring(self)` - Test for the Place class docstring
+5. **Run the application:**
 
-[/test_models/test_review.py](/tests/test_models/test_review.py) - Contains the TestReviewDocs class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_review(self)` - Test that models/review.py conforms to PEP8
-* `def test_pep8_conformance_test_review(self)` - Test that tests/test_models/test_review.py conforms to PEP8
-* `def test_review_module_docstring(self)` - Test for the review.py module docstring
-* `def test_review_class_docstring(self)` - Test for the Review class docstring
+    ```bash
+    python3 -m api.v1.app
+    ```
 
-[/test_models/state.py](/tests/test_models/test_state.py) - Contains the TestStateDocs class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_state(self)` - Test that models/state.py conforms to PEP8
-* `def test_pep8_conformance_test_state(self)` - Test that tests/test_models/test_state.py conforms to PEP8
-* `def test_state_module_docstring(self)` - Test for the state.py module docstring
-* `def test_state_class_docstring(self)` - Test for the State class docstring
+## Usage
 
-[/test_models/user.py](/tests/test_models/test_user.py) - Contains the TestUserDocs class:
-* `def setUpClass(cls)` - Set up for the doc tests
-* `def test_pep8_conformance_user(self)` - Test that models/user.py conforms to PEP8
-* `def test_pep8_conformance_test_user(self)` - Test that tests/test_models/test_user.py conforms to PEP8
-* `def test_user_module_docstring(self)` - Test for the user.py module docstring
-* `def test_user_class_docstring(self)` - Test for the User class docstring
+Interact with the API using HTTP requests to manage resources such as users, places, cities, states, and amenities. Use tools like `curl` or Postman for testing and development purposes.
 
+## Tasks
 
-## Examples of use
-```
-vagrantAirBnB_clone$./console.py
-(hbnb) help
+### 0. Restart from scratch!
 
-Documented commands (type help <topic>):
-========================================
-EOF  all  create  destroy  help  quit  show  update
+- **Description:** Set up a fresh codebase for version 3 of the project by forking from version 2, updating the repository name, and configuring the project environment.
 
-(hbnb) all MyModel
-** class doesn't exist **
-(hbnb) create BaseModel
-7da56403-cc45-4f1c-ad32-bfafeb2bb050
-(hbnb) all BaseModel
-[[BaseModel] (7da56403-cc45-4f1c-ad32-bfafeb2bb050) {'updated_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772167), 'id': '7da56403-cc45-4f1c-ad32-bfafeb2bb050', 'created_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772123)}]
-(hbnb) show BaseModel 7da56403-cc45-4f1c-ad32-bfafeb2bb050
-[BaseModel] (7da56403-cc45-4f1c-ad32-bfafeb2bb050) {'updated_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772167), 'id': '7da56403-cc45-4f1c-ad32-bfafeb2bb050', 'created_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772123)}
-(hbnb) destroy BaseModel 7da56403-cc45-4f1c-ad32-bfafeb2bb050
-(hbnb) show BaseModel 7da56403-cc45-4f1c-ad32-bfafeb2bb050
-** no instance found **
-(hbnb) quit
-```
+- **Repository:** [GitHub](https://github.com/your-username/holbertonschool-AirBnB_clone_v3)
 
-## Bugs
-No known bugs at this time. 
+### 1. Never fail!
 
-## Authors
-Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
-Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
+- **Description:** Implement error handling in the API for consistent error messages for HTTP requests. Validate input data and provide appropriate responses.
 
-Second part of Airbnb: Joann Vuong
+### 2. Code review
+
+- **Description:** Conduct a code review to ensure adherence to best practices. Refactor and improve code quality, readability, and documentation.
+
+### 3. Improve storage
+
+- **Description:** Integrate SQLAlchemy to enhance the storage engine for ORM support, models, and migrations, allowing more robust data management.
+
+### 4. Status of your API
+
+- **Description:** Create an endpoint to check the API status, returning information about the current state and number of objects in the storage system.
+
+### 5. Some stats?
+
+- **Description:** Extend the status endpoint to include additional statistics about the number of objects stored, such as users, places, and cities.
+
+### 6. State
+
+- **Description:** Implement a view to handle State objects with CRUD operations using RESTful API actions, enabling users to manage state data.
+
+- **Files:** `api/v1/views/states.py`, `api/v1/views/__init__.py`
+
+### 7. City
+
+- **Description:** Develop a view for City objects with complete RESTful API actions, including endpoints for managing city resources.
+
+- **Files:** `api/v1/views/cities.py`, `api/v1/views/__init__.py`
+
+### 8. Amenity
+
+- **Description:** Create a view for Amenity objects that handles CRUD operations using RESTful API, allowing interaction with Amenity data.
+
+- **Files:** `api/v1/views/amenities.py`, `api/v1/views/__init__.py`
+
+### 9. User
+
+- **Description:** Implement a view for managing User objects, including CRUD operations via the API, and ensure secure handling of user data.
+
+- **Files:** `api/v1/views/users.py`, `api/v1/views/__init__.py`
+
+### 10. Place
+
+- **Description:** Create a view for Place objects with all RESTful API actions, enabling management of place data in the application.
+
+- **Files:** `api/v1/views/places.py`, `api/v1/views/__init__.py`
+
+### 11. Reviews
+
+- **Description:** Develop a view to manage Review objects, including CRUD operations for reviews associated with places through the API.
+
+- **Files:** `api/v1/views/reviews.py`, `api/v1/views/__init__.py`
+
+### 12. HTTP access control (CORS)
+
+- **Description:** Implement Cross-Origin Resource Sharing (CORS) to allow API access from different origins, ensuring secure and proper CORS configuration.
+
+- **Files:** `api/v1/app.py`
+
+### 13. Not found
+
+- **Description:** Enhance the API to handle 404 errors consistently across all endpoints, ensuring meaningful error messages for invalid requests.
+
+### 14. Place - Amenity
+
+- **Description:** Create a view for linking Place and Amenity objects with RESTful API actions, allowing for association and disassociation between them.
+
+- **Files:** `api/v1/views/places_amenities.py`, `api/v1/views/__init__.py`
+
+### 15. Security improvements!
+
+- **Description:** Improve the User object by hashing passwords using MD5 and ensuring secure password storage in both the database and file storage.
+
+- **Files:** `models/base_model.py`, `models/user.py`
+
+### 16. Search
+
+- **Description:** Implement a search endpoint to retrieve Place objects based on JSON parameters in the request body, supporting filtering by states, cities, and amenities.
+
+- **Files:** `api/v1/views/places.py`
+
+### 17. Documentation
+
+- **Description:** Use Flasgger to document each API endpoint, enabling easy access to API documentation through a web interface.
+
+- **Command:** Install with `pip3 install flasgger`
+
+## Contributing
+
+Contributions are welcome! Follow these steps to contribute:
+
+1. **Fork the repository.**
+2. **Create a new branch.**
+3. **Commit your changes.**
+4. **Push to your fork.**
+5. **Open a pull request.**
+
+Ensure your code follows the project's standards and includes appropriate tests.
+
 ## License
-Public Domain. No copy write protection. 
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
