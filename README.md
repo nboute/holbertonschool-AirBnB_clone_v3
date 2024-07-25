@@ -87,51 +87,52 @@ Interact with the API using HTTP requests to manage resources such as users, pla
 
 - **Description:** Extend the status endpoint to include additional statistics about the number of objects stored, such as users, places, and cities.
 
-### 6. State
+### 6. Not found
+
+- **Description:** Enhance the API to handle 404 errors consistently across all endpoints, ensuring meaningful error messages for invalid requests.
+- 
+### 7. State
 
 - **Description:** Implement a view to handle State objects with CRUD operations using RESTful API actions, enabling users to manage state data.
 
 - **Files:** `api/v1/views/states.py`, `api/v1/views/__init__.py`
 
-### 7. City
+### 8. City
 
 - **Description:** Develop a view for City objects with complete RESTful API actions, including endpoints for managing city resources.
 
 - **Files:** `api/v1/views/cities.py`, `api/v1/views/__init__.py`
 
-### 8. Amenity
+### 9. Amenity
 
 - **Description:** Create a view for Amenity objects that handles CRUD operations using RESTful API, allowing interaction with Amenity data.
 
 - **Files:** `api/v1/views/amenities.py`, `api/v1/views/__init__.py`
 
-### 9. User
+### 10. User
 
 - **Description:** Implement a view for managing User objects, including CRUD operations via the API, and ensure secure handling of user data.
 
 - **Files:** `api/v1/views/users.py`, `api/v1/views/__init__.py`
 
-### 10. Place
+### 11. Place
 
 - **Description:** Create a view for Place objects with all RESTful API actions, enabling management of place data in the application.
 
 - **Files:** `api/v1/views/places.py`, `api/v1/views/__init__.py`
 
-### 11. Reviews
+### 12. Reviews
 
 - **Description:** Develop a view to manage Review objects, including CRUD operations for reviews associated with places through the API.
 
 - **Files:** `api/v1/views/reviews.py`, `api/v1/views/__init__.py`
 
-### 12. HTTP access control (CORS)
+### 13. HTTP access control (CORS)
 
 - **Description:** Implement Cross-Origin Resource Sharing (CORS) to allow API access from different origins, ensuring secure and proper CORS configuration.
 
 - **Files:** `api/v1/app.py`
 
-### 13. Not found
-
-- **Description:** Enhance the API to handle 404 errors consistently across all endpoints, ensuring meaningful error messages for invalid requests.
 
 ### 14. Place - Amenity
 
