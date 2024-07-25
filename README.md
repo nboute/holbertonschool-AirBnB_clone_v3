@@ -1,6 +1,7 @@
 # AirBnB Clone V3
 
 Welcome to the **AirBnB Clone V3** project! This project is part of the Holberton School curriculum and aims to develop a simplified version of the AirBnB platform. This version includes a RESTful API to handle HTTP requests and perform CRUD operations on the backend storage system.
+
 All instructions mentionned here refer to the Holberton School project's tasks. They are already implemented in the project.
 ## Table of Contents
 
